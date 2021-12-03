@@ -81,7 +81,10 @@ self.addEventListener('activate', function (e) {
       // add current cache name to white list
       cacheKeeplist.push(CACHE_NAME);
 
-  
+      return Promise.all(keyList.map(function (key, i) {
+        if (cacheKeeplist.indexOf(key) === -1) {
+          console.log('deleting cache : ' + keyList[i] );
+          return caches.delete(keyList[i]);
         }
       }));
     })
